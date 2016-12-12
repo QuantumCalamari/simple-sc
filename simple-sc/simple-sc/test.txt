@@ -1,3 +1,10 @@
 stuff
-
+crct_begin
 some stuff
+make a circuit
+crct_end
+more things
+
+inst_begin
+this instruction
+inst_end

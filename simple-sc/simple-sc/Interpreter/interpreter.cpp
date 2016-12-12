@@ -10,6 +10,9 @@ namespace itp {
 
 		std::string line;
 		std::ifstream file;
+
+		bool circ = false;
+		bool inst = false;
 		
 		file.open(filename);
 
@@ -17,7 +20,24 @@ namespace itp {
 		{
 			while (getline(file, line))
 			{
-				std::cout << line << std::endl;
+				//search for circuit
+				if (!line.find("crct_end") || !circ) {
+					circ = false;
+				}
+
+				if (!line.find("crct_begin") || circ) {
+					circ = true;
+					itp::interpreter::search_circuit(line);
+				}
+				//search for instructions
+				if (!line.find("inst_end") || !inst) {
+					inst = false;
+				}
+
+				if (!line.find("inst_begin") || inst) {
+					inst = true;
+					itp::interpreter::search_instruction(line);
+				}
 			}
 			file.close();
 		}
@@ -27,7 +47,11 @@ namespace itp {
 
 	}
 
-	void interpreter::search_circuit(std::string filename) {
+	void interpreter::search_circuit(std::string line) {
+		std::cout << "circuit - " << line << std::endl;
+	}
 
+	void interpreter::search_instruction(std::string line) {
+		std::cout << "instruction - " << line << std::endl;
 	}
 }
